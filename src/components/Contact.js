@@ -1,292 +1,428 @@
 "use client";
 
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
+import Footer from "./Footer";
+import Image from "next/image";
+import contact from "../../public/contact.png"
 export default function Contact() {
-  const [activeProject, setActiveProject] = useState("Web App");
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  // Form State
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    projectType: "", // BRAND, WEBSITE, PRODUCT, APP, OTHER
+    message: "",
+  });
+
+  const [formErrors, setFormErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
 
-  const projectTypes = [
-    "Web App",
-    "AI Engineering",
-    "Cloud Native",
-    "Cybersecurity",
-    "Mobile App",
-  ];
+  // Time State for Clock in bottom (matching design local time if needed, though footer has it)
+  const [timeString, setTimeString] = useState("01:25 PM");
 
+  useEffect(() => {
+    const updateTime = () => {
+      const options = {
+        timeZone: "America/New_York",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+      };
+      try {
+        const formatter = new Intl.DateTimeFormat("en-US", options);
+        setTimeString(formatter.format(new Date()));
+      } catch (e) {
+        const now = new Date();
+        let hours = now.getHours();
+        const minutes = String(now.getMinutes()).padStart(2, "0");
+        const ampm = hours >= 12 ? "PM" : "AM";
+        hours = hours % 12;
+        hours = hours ? hours : 12;
+        setTimeString(`${String(hours).padStart(2, "0")}:${minutes} ${ampm}`);
+      }
+    };
+    updateTime();
+    const interval = setInterval(updateTime, 60000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Handlers
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    if (formErrors[name]) {
+      setFormErrors((prev) => ({ ...prev, [name]: null }));
+    }
+  };
+
+  const handlePillSelect = (type) => {
+    setFormData((prev) => ({ ...prev, projectType: type }));
+    if (formErrors.projectType) {
+      setFormErrors((prev) => ({ ...prev, projectType: null }));
+    }
+  };
+
+  const validateForm = () => {
+    const errors = {};
+    if (!formData.name.trim()) errors.name = "Name is required";
+    if (!formData.email.trim()) {
+      errors.email = "Email address is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      errors.email = "Please enter a valid email address";
+    }
+    if (!formData.projectType) errors.projectType = "Please select a project type";
+    if (!formData.message.trim()) errors.message = "Please enter a message";
+    return errors;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) return;
+    const errors = validateForm();
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      return;
+    }
 
     setIsSubmitting(true);
-    // Simulate API request
+    // Simulate premium API call
     setTimeout(() => {
       setIsSubmitting(false);
-      setIsSuccess(true);
-      setFormData({ name: "", email: "", message: "" });
-      // Reset success state after a few seconds
-      setTimeout(() => setIsSuccess(false), 5000);
-    }, 1500);
+      setSubmitSuccess(true);
+      setFormData({
+        name: "",
+        email: "",
+        projectType: "",
+        message: "",
+      });
+      // Clear success alert after 5 seconds
+      setTimeout(() => {
+        setSubmitSuccess(false);
+      }, 5000);
+    }, 2000);
   };
 
+  const projectTypes = ["BRAND", "WEBSITE", "PRODUCT", "APP", "OTHER"];
+
   return (
-    <div className="min-h-screen bg-[#0b0c10] text-white relative overflow-hidden flex flex-col font-[family-name:var(--font-inter)]">
-      {/* Decorative Grid & Glow Background */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:4.5rem_4.5rem]"></div>
-        <div className="absolute top-[10%] right-[10%] w-[550px] h-[550px] bg-[#9390f9]/8 rounded-full blur-[140px] pointer-events-none"></div>
-        <div className="absolute bottom-[10%] left-[10%] w-[500px] h-[500px] bg-[#4177fd]/8 rounded-full blur-[150px] pointer-events-none"></div>
-      </div>
-
-      <div className="relative z-10 flex-grow w-full max-w-[1280px] mx-auto px-4 md:px-10 py-16 md:py-24">
-        {/* Header */}
-        <div className="max-w-[700px] mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 mb-6">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#9390f9] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#9390f9]"></span>
-            </span>
-            <span className="text-[10px] font-semibold uppercase tracking-wider text-[#bbb2b2] font-[family-name:var(--font-poppins)]">
-              COLLABORATION
-            </span>
-          </div>
-
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-white tracking-tight leading-[1.15] mb-6 font-[family-name:var(--font-poppins)]">
-            Let's build the <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#9390f9] to-[#beb3ff] drop-shadow-[0_0_35px_rgba(147,144,249,0.25)]">
-              extraordinary
-            </span>.
-          </h1>
-
-          <p className="text-lg text-[#9f9f9f] leading-relaxed max-w-[600px] font-light">
-            Have an ambitious project, design challenge, or system architecture in mind? Drop us a line. We reply within 2 hours.
-          </p>
+    <div className="flex flex-col min-h-screen bg-[#0b0c10] text-white">
+      {/* Hero Section */}
+      <section className="relative w-full min-h-[567px] flex items-center justify-center overflow-hidden px-6 lg:px-[60px] py-16 md:py-24 bg-[#0b0c10] border-b border-white/5">
+        {/* Tech Grid & Glow Background */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:4.5rem_4.5rem]"></div>
+          {/* Glowing spheres */}
+          <div className="absolute top-[10%] left-[25%] w-[500px] h-[500px] bg-[#9390f9]/8 rounded-full blur-[140px] animate-pulse-slow"></div>
         </div>
 
-        {/* Form and Info Section Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          
-          {/* Left Column: Info & Visual Locator (5 Cols) */}
-          <div className="lg:col-span-5 flex flex-col gap-10">
-            {/* Contact Details Cards */}
-            <div className="flex flex-col gap-6">
-              {/* Card: Email */}
-              <div className="flex items-start gap-4 p-5 rounded-2xl bg-[#111218]/40 border border-white/5 hover:border-white/10 transition-colors">
-                <div className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-[#9390f9] shrink-0">
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                </div>
-                <div>
-                  <h4 className="text-[13px] tracking-wider uppercase font-semibold text-[#7c7c7c] font-[family-name:var(--font-poppins)] mb-1">
-                    Direct Email
-                  </h4>
-                  <a href="mailto:hello@lumonix.io" className="text-white hover:text-[#9390f9] text-base transition-colors font-medium">
-                    hello@lumonix.io
-                  </a>
-                </div>
-              </div>
+        <div className="relative z-10 w-full max-w-[1280px] mx-auto text-center flex flex-col items-center">
+          {/* Heading (Feel free to get in touch) */}
+          <h1 className="text-[40px] sm:text-[60px] lg:text-[76px] font-semibold text-white tracking-tight leading-[1.15] mb-6 font-[family-name:var(--font-poppins)] max-w-[1030px]">
+            Feel free to get <br className="sm:hidden" />
+            <span className="text-[#9390f9]">in touch</span>
+          </h1>
 
-              {/* Card: Phone */}
-              <div className="flex items-start gap-4 p-5 rounded-2xl bg-[#111218]/40 border border-white/5 hover:border-white/10 transition-colors">
-                <div className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-[#4177fd] shrink-0">
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                  </svg>
-                </div>
-                <div>
-                  <h4 className="text-[13px] tracking-wider uppercase font-semibold text-[#7c7c7c] font-[family-name:var(--font-poppins)] mb-1">
-                    Phone Inquiry
-                  </h4>
-                  <a href="tel:+15558392011" className="text-white hover:text-[#4177fd] text-base transition-colors font-medium">
-                    +1 (555) 839-2011
-                  </a>
-                </div>
-              </div>
+          {/* Description */}
+          <p className="text-lg sm:text-[22px] lg:text-2xl text-[#bbb2b2] leading-relaxed max-w-[1030px] font-[family-name:var(--font-inter)] font-normal">
+            With over 20 years of experience, we can deliver great results for your
+            online business without additional costs or commitments.
+          </p>
+        </div>
+      </section>
 
-              {/* Card: Headquarters */}
-              <div className="flex items-start gap-4 p-5 rounded-2xl bg-[#111218]/40 border border-white/5 hover:border-white/10 transition-colors">
-                <div className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-[#beb3ff] shrink-0">
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                </div>
-                <div>
-                  <h4 className="text-[13px] tracking-wider uppercase font-semibold text-[#7c7c7c] font-[family-name:var(--font-poppins)] mb-1">
-                    Offices
-                  </h4>
-                  <p className="text-white text-base font-medium">
-                    San Francisco, CA (HQ) <br />
-                    London, UK
-                  </p>
-                </div>
-              </div>
+      {/* Main Section: Contact Info & Form */}
+      <section className="relative w-full bg-[#0b0c10] py-20 lg:py-28 overflow-hidden border-b border-white/5">
+        {/* Tech Grid Background */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:4.5rem_4.5rem]"></div>
+          <div className="absolute bottom-[10%] right-[15%] w-[400px] h-[400px] bg-[#635cff]/5 rounded-full blur-[120px]"></div>
+        </div>
+
+        <div className="relative z-10 w-full max-w-[1280px] mx-auto px-4 md:px-10 grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+
+          {/* Left Column: Contact Details (Frame 550) */}
+          <div className="lg:col-span-7 flex flex-col items-start text-left gap-12 lg:sticky lg:top-[120px]">
+            {/* Info Badge (Frame 437) */}
+            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 shrink-0">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#635cff] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#635cff]"></span>
+              </span>
+              <span className="text-[12px] font-semibold uppercase tracking-wider text-[#bbb2b2] font-[family-name:var(--font-poppins)]">
+                Get in touch
+              </span>
             </div>
 
-            {/* Stylized Locator Map Graphic */}
-            <div className="relative rounded-2xl border border-white/5 bg-[#111218]/30 h-[220px] w-full overflow-hidden flex items-center justify-center group shadow-inner">
-              {/* Tech lines grid overlay inside map */}
-              <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff02_1px,transparent_1px),linear-gradient(to_bottom,#ffffff02_1px,transparent_1px)] bg-[size:2rem_2rem]"></div>
-              
-              {/* Concentric location waves */}
-              <div className="absolute w-[160px] h-[160px] border border-[#9390f9]/10 rounded-full flex items-center justify-center animate-pulse-slow">
-                <div className="absolute w-[110px] h-[110px] border border-[#9390f9]/20 rounded-full flex items-center justify-center">
-                  <div className="absolute w-[60px] h-[60px] border border-[#9390f9]/30 rounded-full flex items-center justify-center">
-                    <span className="relative flex h-4 w-4">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#9390f9] opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-4 w-4 bg-gradient-to-tr from-[#9390f9] to-[#beb3ff] shadow-[0_0_12px_rgba(147,144,249,0.6)]"></span>
-                    </span>
-                  </div>
-                </div>
+            {/* Main Ambition Title (Frame 498) */}
+            <h2 className="text-[36px] sm:text-[48px] lg:text-[64px] font-semibold text-white tracking-tight leading-[1.15] font-[family-name:var(--font-poppins)] max-w-[593px]">
+              Tell us about your <br />
+              <span className="text-[#9390f9]">ambition.</span>
+            </h2>
+
+            {/* Description (Frame 549) */}
+            <p className="text-base sm:text-lg lg:text-xl text-[#bbb2b2] leading-relaxed max-w-[593px] font-[family-name:var(--font-inter)] font-light">
+              Whether you&apos;re starting from scratch or refining an icon, we partner with
+              brands that value craft and long-term vision.
+            </p>
+
+            {/* Contact Cards (Frame 548) */}
+            <div className="flex flex-col gap-10 mt-6">
+              {/* Card 1: New Business */}
+              <div className="flex flex-col gap-2">
+                <span className="text-[14px] font-normal uppercase tracking-[1.82px] text-[#bbb2b2] font-[family-name:var(--font-geist-mono)]">
+                  New business
+                </span>
+                <a
+                  href="mailto:hello@lumoonix.com"
+                  className="text-lg sm:text-[20px] font-medium text-white hover:text-[#9390f9] transition-colors duration-200 font-[family-name:var(--font-poppins)] underline decoration-white/20 underline-offset-4"
+                >
+                  hello@lumoonix.com
+                </a>
               </div>
 
-              {/* Floating Map Label Badge */}
-              <div className="absolute bottom-5 bg-[#0b0c10]/90 border border-white/10 px-3.5 py-1.5 rounded-full backdrop-blur-md shadow-2xl flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
-                <span className="text-[10px] tracking-widest font-semibold text-[#e7e0e0] uppercase font-[family-name:var(--font-inter)]">
-                  LUMONIX SF HQ
+              {/* Card 2: Visit us */}
+              <div className="flex flex-col gap-2">
+                <span className="text-[14px] font-normal uppercase tracking-[1.82px] text-[#bbb2b2] font-[family-name:var(--font-geist-mono)]">
+                  Visit us
+                </span>
+                <span className="text-lg sm:text-[20px] font-normal text-white font-[family-name:var(--font-inter)]">
+                  brooklyn — ahmedabad
+                </span>
+              </div>
+
+              {/* Card 3: Reply window */}
+              <div className="flex flex-col gap-2">
+                <span className="text-[14px] font-normal uppercase tracking-[1.82px] text-[#bbb2b2] font-[family-name:var(--font-geist-mono)]">
+                  Reply window
+                </span>
+                <span className="text-lg sm:text-[20px] font-normal text-white font-[family-name:var(--font-inter)]">
+                  within ~24 hours
                 </span>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Contact Form (7 Cols) */}
-          <div className="lg:col-span-7">
-            <div className="rounded-2xl bg-[#111218]/60 backdrop-blur-md border border-white/10 p-8 shadow-2xl relative overflow-hidden">
-              
-              {/* Gradient border glows */}
-              <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#9390f9]/40 to-transparent"></div>
-              
-              {isSuccess ? (
-                <div className="py-16 flex flex-col items-center text-center justify-center">
-                  <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 mb-6 animate-bounce">
-                    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <h3 className="text-2xl font-semibold text-white font-[family-name:var(--font-poppins)] mb-3">
-                    Message Dispatched!
-                  </h3>
-                  <p className="text-[#9f9f9f] text-sm max-w-[340px] leading-relaxed">
-                    Thank you for reaching out. We have logged your request and a project architect will follow up with you shortly.
-                  </p>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-                  
-                  {/* Field: Project Category Pills */}
-                  <div>
-                    <span className="text-xs text-[#7c7c7c] tracking-widest uppercase font-semibold block mb-3 font-[family-name:var(--font-poppins)]">
-                      Project Category
-                    </span>
-                    <div className="flex flex-wrap gap-2.5">
-                      {projectTypes.map((type) => (
-                        <button
-                          key={type}
-                          type="button"
-                          onClick={() => setActiveProject(type)}
-                          className={`px-4 py-2 rounded-full text-xs font-semibold font-[family-name:var(--font-poppins)] transition-all duration-300 ${
-                            activeProject === type
-                              ? "bg-gradient-to-r from-[#9390f9] to-[#beb3ff] text-[#0b0c10] shadow-[0_0_15px_rgba(147,144,249,0.3)] hover:brightness-105"
-                              : "bg-white/5 border border-white/10 text-[#bbb2b2] hover:bg-white/10 hover:border-white/20"
+          {/* Right Column: Contact Form (Frame 563) */}
+          <div className="lg:col-span-5 w-full ps-8 pe-8 sm:p-10 pt-0 pb-0   relative group/form">
+            {/* <div className="lg:col-span-5 w-full bg-[#111218]/20 border border-white/5 p-8 sm:p-10 rounded-3xl backdrop-blur-sm relative group/form shadow-2xl"> */}
+            <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#9390f9]/0 to-transparent group-hover/form:via-[#9390f9]/20 transition-all duration-300"></div>
+
+            <form onSubmit={handleSubmit} className="flex flex-col gap-8">
+              {/* Field 1: Name */}
+              <div className="flex flex-col gap-3 relative">
+                <label
+                  htmlFor="name"
+                  className="text-[12px] font-medium uppercase tracking-[1.82px] text-[#bbb2b2] font-[family-name:var(--font-geist-mono)]"
+                >
+                  Name
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  placeholder="Jane doe"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  className="w-full bg-transparent border-b border-white/10 py-3 text-lg font-normal text-white focus:border-[#9390f9] focus:outline-none transition-colors duration-200 placeholder-white/20 font-[family-name:var(--font-inter)]"
+                />
+                {formErrors.name && (
+                  <span className="text-xs text-rose-500 mt-1 font-[family-name:var(--font-inter)]">
+                    {formErrors.name}
+                  </span>
+                )}
+              </div>
+
+              {/* Field 2: Email */}
+              <div className="flex flex-col gap-3 relative">
+                <label
+                  htmlFor="email"
+                  className="text-[12px] font-medium uppercase tracking-[1.82px] text-[#bbb2b2] font-[family-name:var(--font-geist-mono)]"
+                >
+                  Email address
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  placeholder="Jane@lumoonix.com"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  className="w-full bg-transparent border-b border-white/10 py-3 text-lg font-normal text-white focus:border-[#9390f9] focus:outline-none transition-colors duration-200 placeholder-white/20 font-[family-name:var(--font-inter)]"
+                />
+                {formErrors.email && (
+                  <span className="text-xs text-rose-500 mt-1 font-[family-name:var(--font-inter)]">
+                    {formErrors.email}
+                  </span>
+                )}
+              </div>
+
+              {/* Field 3: Project Type (Pills) */}
+              <div className="flex flex-col gap-4">
+                <span className="text-[12px] font-medium uppercase tracking-[1.82px] text-[#bbb2b2] font-[family-name:var(--font-geist-mono)]">
+                  Project Type
+                </span>
+                <div className="flex flex-wrap gap-3">
+                  {projectTypes.map((type) => {
+                    const isSelected = formData.projectType === type;
+                    return (
+                      <button
+                        key={type}
+                        type="button"
+                        onClick={() => handlePillSelect(type)}
+                        className={`px-5 py-2 rounded-full border text-xs font-semibold tracking-wider transition-all duration-300 font-[family-name:var(--font-poppins)] ${isSelected
+                          ? "bg-[#9390f9] border-[#9390f9] text-[#0b0c10] shadow-[0_0_15px_rgba(147,144,249,0.3)] scale-[1.05]"
+                          : "bg-transparent border-[#bbb2b2]/40 text-[#bbb2b2] hover:border-[#bbb2b2] hover:text-white"
                           }`}
-                        >
-                          {type}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
+                      >
+                        {type}
+                      </button>
+                    );
+                  })}
+                </div>
+                {formErrors.projectType && (
+                  <span className="text-xs text-rose-500 mt-1 font-[family-name:var(--font-inter)]">
+                    {formErrors.projectType}
+                  </span>
+                )}
+              </div>
 
-                  {/* Field: Full Name */}
-                  <div className="flex flex-col">
-                    <label htmlFor="name" className="text-xs text-[#7c7c7c] tracking-widest uppercase font-semibold mb-2 font-[family-name:var(--font-poppins)]">
-                      Full Name
-                    </label>
-                    <input
-                      required
-                      type="text"
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      placeholder="e.g. Sarah Chen"
-                      className="h-12 px-4 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/20 focus:outline-none focus:border-[#9390f9] focus:ring-1 focus:ring-[#9390f9]/50 transition-all font-light"
-                    />
-                  </div>
+              {/* Field 4: Message */}
+              <div className="flex flex-col gap-3 relative">
+                <label
+                  htmlFor="message"
+                  className="text-[12px] font-medium uppercase tracking-[1.82px] text-[#bbb2b2] font-[family-name:var(--font-geist-mono)]"
+                >
+                  What&apos;s on your mind?
+                </label>
+                <textarea
+                  name="message"
+                  id="message"
+                  rows="3"
+                  placeholder="Timeline, budget, the vision..."
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  className="w-full bg-transparent border-b border-white/10 py-3 text-lg font-normal text-white focus:border-[#9390f9] focus:outline-none transition-colors duration-200 placeholder-white/20 resize-none font-[family-name:var(--font-inter)]"
+                />
+                {formErrors.message && (
+                  <span className="text-xs text-rose-500 mt-1 font-[family-name:var(--font-inter)]">
+                    {formErrors.message}
+                  </span>
+                )}
+              </div>
 
-                  {/* Field: Email */}
-                  <div className="flex flex-col">
-                    <label htmlFor="email" className="text-xs text-[#7c7c7c] tracking-widest uppercase font-semibold mb-2 font-[family-name:var(--font-poppins)]">
-                      Email Address
-                    </label>
-                    <input
-                      required
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      placeholder="e.g. sarah@example.com"
-                      className="h-12 px-4 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/20 focus:outline-none focus:border-[#9390f9] focus:ring-1 focus:ring-[#9390f9]/50 transition-all font-light"
-                    />
-                  </div>
+              {/* Submit Button */}
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full h-[60px] border border-[#bbb2b2] hover:border-white text-white font-[family-name:var(--font-geist-mono)] text-sm tracking-[2.8px] uppercase relative overflow-hidden flex items-center justify-center transition-all duration-300 hover:bg-white hover:text-[#0b0c10] active:scale-[0.99] disabled:opacity-50 mt-4 group/submit"
+              >
+                {isSubmitting ? (
+                  <span className="flex items-center gap-2 text-xs">
+                    <svg
+                      className="animate-spin h-4 w-4 text-white group-hover/submit:text-[#0b0c10]"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      />
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      />
+                    </svg>
+                    Sending...
+                  </span>
+                ) : (
+                  "Send inquiry →"
+                )}
+              </button>
+            </form>
 
-                  {/* Field: Message */}
-                  <div className="flex flex-col">
-                    <label htmlFor="message" className="text-xs text-[#7c7c7c] tracking-widest uppercase font-semibold mb-2 font-[family-name:var(--font-poppins)]">
-                      Tell us about your project
-                    </label>
-                    <textarea
-                      required
-                      rows={5}
-                      id="message"
-                      name="message"
-                      value={formData.message}
-                      onChange={handleInputChange}
-                      placeholder="What are we engineering?"
-                      className="p-4 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/20 focus:outline-none focus:border-[#9390f9] focus:ring-1 focus:ring-[#9390f9]/50 transition-all font-light resize-none leading-relaxed"
-                    />
-                  </div>
-
-                  {/* Submit Button */}
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="group/btn h-14 mt-2 rounded-xl bg-white hover:bg-neutral-100 disabled:bg-neutral-600 disabled:cursor-not-allowed text-[#0b0c10] font-[family-name:var(--font-poppins)] font-medium text-base transition-all duration-300 hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2.5 shadow-xl relative overflow-hidden"
+            {/* Success Alert Overlay */}
+            {submitSuccess && (
+              <div className="absolute inset-0 bg-[#0b0c10]/95 backdrop-blur-sm rounded-3xl flex flex-col items-center justify-center p-8 text-center animate-fade-in z-20">
+                <div className="w-16 h-16 rounded-full bg-[#9390f9]/10 border border-[#9390f9]/30 flex items-center justify-center mb-6 shadow-[0_0_20px_rgba(147,144,249,0.15)]">
+                  <svg
+                    className="w-8 h-8 text-[#9390f9]"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
                   >
-                    {isSubmitting ? (
-                      <>
-                        <svg className="animate-spin h-5 w-5 text-[#0b0c10]" fill="none" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                        </svg>
-                        <span>Dispatching...</span>
-                      </>
-                    ) : (
-                      <>
-                        <span>Submit Inquiry</span>
-                        <svg className="w-4 h-4 transform transition-transform duration-300 group-hover/btn:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                        </svg>
-                      </>
-                    )}
-                  </button>
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-semibold text-white mb-2 font-[family-name:var(--font-poppins)]">
+                  Inquiry Sent!
+                </h3>
+                <p className="text-sm text-[#bbb2b2] max-w-[280px] font-[family-name:var(--font-inter)] leading-relaxed">
+                  Thank you for reaching out. We will get back to you within 24 hours.
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
 
-                </form>
-              )}
-            </div>
+      {/* Bottom CTA Section: Let's Talk */}
+      <section className="relative w-full bg-[#0b0c10] py-24 overflow-hidden border-b border-white/5">
+        {/* Subtle Tech Grid overlay and glowing light source */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:5rem_2.75rem] opacity-35"></div>
+          <div className="absolute top-[20%] left-[50%] -translate-x-1/2 w-[500px] h-[300px] bg-[#9390f9]/6 rounded-full blur-[100px] animate-pulse-slow"></div>
+        </div>
+
+        <div className="relative z-10 w-full max-w-[859px] mx-auto text-center flex flex-col items-center gap-8">
+
+          {/* Badge: We Ready 24 Hours */}
+          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 shrink-0">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#635cff] opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#635cff]"></span>
+            </span>
+            <span className="text-[12px] font-semibold uppercase tracking-wider text-[#bbb2b2] font-[family-name:var(--font-poppins)]">
+              We Ready 24 Hours
+            </span>
           </div>
 
+          <div className="flex flex-col gap-4">
+            <h2 className="text-3xl sm:text-[44px] sm:leading-[54px] lg:text-[48px] font-semibold text-white tracking-tight font-[family-name:var(--font-poppins)] max-w-[800px]">
+              Have a project in mind?
+              <span className="text-[#9390f9]"> Let&apos;s Talk</span>
+            </h2>
+            <p className="text-base sm:text-lg text-[#bbb2b2] font-light font-[family-name:var(--font-inter)] tracking-wide max-w-[650px] leading-relaxed mx-auto">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+              tempor incididunt ut labore et dolore magna aliqua.
+            </p>
+          </div>
+
+          {/* Premium Call Button (Frame 839) */}
+          <a
+            href="tel:+9112345678909"
+            className="group/cta inline-flex items-center justify-evenly pl-0 pr-0 w-[277px] h-[60px] rounded-full bg-[#9390f9] hover:bg-[#827ef5] text-[#0b0c10] font-[family-name:var(--font-inter)] font-semibold text-lg transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] shadow-[0_0_30px_rgba(147,144,249,0.3)] hover:shadow-[0_0_40px_rgba(147,144,249,0.4)]"
+          >
+            <span>+91 12345678909</span>
+            {/* Phone Icon Circle (Frame 837) */}
+            <div className="w-[44px] h-[44px] rounded-full bg-white flex items-center justify-center shadow-md shrink-0 transition-transform duration-300 group-hover/cta:rotate-12 group-hover/cta:scale-105">
+
+              <Image src={contact} alt="" width={24} height={24} className="text-[#0b0c10] transition-colors duration-200" />
+            </div>
+          </a>
         </div>
-      </div>
+      </section>
+
+      {/* Footer component */}
+      <Footer />
     </div>
   );
 }

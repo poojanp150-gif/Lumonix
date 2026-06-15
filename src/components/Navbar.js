@@ -33,7 +33,7 @@ export default function Navbar() {
                 : "bg-[#0b0c10] shadow-[0_2px_4px_rgba(55,55,55,0.25)] h-[78px]"
                 } flex items-center`}
         >
-            <div className="w-full max-w-[1280px] mx-auto px-4 md:px-10 flex items-center justify-between">
+            <div className="w-full max-w-[1280px] mx-auto flex items-center justify-between">
                 {/* Left Section: Logo & Nav Links */}
                 <div className="flex items-center gap-12 lg:gap-24">
                     {/* Logo (Frame 861) */}
@@ -49,9 +49,8 @@ export default function Navbar() {
                     <nav className="hidden md:flex items-center gap-8 font-[family-name:var(--font-inter)] text-[16px]">
                         <Link
                             href="/"
-                            className={`transition-colors duration-200 font-medium relative py-2 ${
-                                isActive("/") ? "text-white" : "text-[#7c7c7c] hover:text-white"
-                            }`}
+                            className={`transition-colors duration-200 font-medium relative py-2 ${isActive("/") ? "text-white" : "text-[#7c7c7c] hover:text-white"
+                                }`}
                         >
                             Home
                             {isActive("/") && (
@@ -60,9 +59,8 @@ export default function Navbar() {
                         </Link>
                         <Link
                             href="/about"
-                            className={`transition-colors duration-200 font-medium relative py-2 ${
-                                isActive("/about") ? "text-white" : "text-[#7c7c7c] hover:text-white"
-                            }`}
+                            className={`transition-colors duration-200 font-medium relative py-2 ${isActive("/about") ? "text-white" : "text-[#7c7c7c] hover:text-white"
+                                }`}
                         >
                             About us
                             {isActive("/about") && (
@@ -77,9 +75,8 @@ export default function Navbar() {
                             onMouseLeave={() => setIsServicesOpen(false)}
                         >
                             <button
-                                className={`flex items-center gap-1.5 transition-colors duration-200 focus:outline-none py-2 ${
-                                    isServicesOpen || isMobileMenuOpen || pathname.startsWith("/services") ? "text-white" : "text-[#7c7c7c] hover:text-white"
-                                }`}
+                                className={`flex items-center gap-1.5 transition-colors duration-200 focus:outline-none py-2 ${isServicesOpen || isMobileMenuOpen || pathname.startsWith("/services") ? "text-white" : "text-[#7c7c7c] hover:text-white"
+                                    }`}
                                 aria-expanded={isServicesOpen}
                                 onClick={() => setIsServicesOpen(!isServicesOpen)}
                             >
@@ -147,9 +144,8 @@ export default function Navbar() {
 
                         <Link
                             href="/work"
-                            className={`transition-colors duration-200 font-medium relative py-2 ${
-                                isActive("/work") ? "text-white" : "text-[#7c7c7c] hover:text-white"
-                            }`}
+                            className={`transition-colors duration-200 font-medium relative py-2 ${isActive("/work") ? "text-white" : "text-[#7c7c7c] hover:text-white"
+                                }`}
                         >
                             Work
                             {isActive("/work") && (
@@ -158,9 +154,8 @@ export default function Navbar() {
                         </Link>
                         <Link
                             href="/contact"
-                            className={`transition-colors duration-200 font-medium relative py-2 ${
-                                isActive("/contact") ? "text-white" : "text-[#7c7c7c] hover:text-white"
-                            }`}
+                            className={`transition-colors duration-200 font-medium relative py-2 ${isActive("/contact") ? "text-white" : "text-[#7c7c7c] hover:text-white"
+                                }`}
                         >
                             Contact
                             {isActive("/contact") && (
@@ -244,18 +239,16 @@ export default function Navbar() {
                     <Link
                         href="/"
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className={`transition-colors duration-200 border-b border-white/5 pb-2 ${
-                            isActive("/") ? "text-white font-semibold" : "text-[#7c7c7c] hover:text-white"
-                        }`}
+                        className={`transition-colors duration-200 border-b border-white/5 pb-2 ${isActive("/") ? "text-white font-semibold" : "text-[#7c7c7c] hover:text-white"
+                            }`}
                     >
                         Home
                     </Link>
                     <Link
                         href="/about"
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className={`transition-colors duration-200 border-b border-white/5 pb-2 ${
-                            isActive("/about") ? "text-white font-semibold" : "text-[#7c7c7c] hover:text-white"
-                        }`}
+                        className={`transition-colors duration-200 border-b border-white/5 pb-2 ${isActive("/about") ? "text-white font-semibold" : "text-[#7c7c7c] hover:text-white"
+                            }`}
                     >
                         About us
                     </Link>
@@ -267,27 +260,24 @@ export default function Navbar() {
                             <Link
                                 href="/services#cloud"
                                 onClick={() => setIsMobileMenuOpen(false)}
-                                className={`text-base ${
-                                    pathname === "/services#cloud" ? "text-white font-semibold" : "text-[#7c7c7c] hover:text-white"
-                                }`}
+                                className={`text-base ${pathname === "/services#cloud" ? "text-white font-semibold" : "text-[#7c7c7c] hover:text-white"
+                                    }`}
                             >
                                 Cloud Migration
                             </Link>
                             <Link
                                 href="/services#software"
                                 onClick={() => setIsMobileMenuOpen(false)}
-                                className={`text-base ${
-                                    pathname === "/services#software" ? "text-white font-semibold" : "text-[#7c7c7c] hover:text-white"
-                                }`}
+                                className={`text-base ${pathname === "/services#software" ? "text-white font-semibold" : "text-[#7c7c7c] hover:text-white"
+                                    }`}
                             >
                                 Custom Software
                             </Link>
                             <Link
                                 href="/services#infrastructure"
                                 onClick={() => setIsMobileMenuOpen(false)}
-                                className={`text-base ${
-                                    pathname === "/services#infrastructure" ? "text-white font-semibold" : "text-[#7c7c7c] hover:text-white"
-                                }`}
+                                className={`text-base ${pathname === "/services#infrastructure" ? "text-white font-semibold" : "text-[#7c7c7c] hover:text-white"
+                                    }`}
                             >
                                 IT Infrastructure
                             </Link>
@@ -296,18 +286,16 @@ export default function Navbar() {
                     <Link
                         href="/work"
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className={`transition-colors duration-200 border-b border-white/5 pb-2 ${
-                            isActive("/work") ? "text-white font-semibold" : "text-[#7c7c7c] hover:text-white"
-                        }`}
+                        className={`transition-colors duration-200 border-b border-white/5 pb-2 ${isActive("/work") ? "text-white font-semibold" : "text-[#7c7c7c] hover:text-white"
+                            }`}
                     >
                         Work
                     </Link>
                     <Link
                         href="/contact"
                         onClick={() => setIsMobileMenuOpen(false)}
-                        className={`transition-colors duration-200 border-b border-white/5 pb-2 ${
-                            isActive("/contact") ? "text-white font-semibold" : "text-[#7c7c7c] hover:text-white"
-                        }`}
+                        className={`transition-colors duration-200 border-b border-white/5 pb-2 ${isActive("/contact") ? "text-white font-semibold" : "text-[#7c7c7c] hover:text-white"
+                            }`}
                     >
                         Contact
                     </Link>

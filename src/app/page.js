@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import smalllogo from "../../public/smalllogo.png"
+import smalllogo from "../../public/smalllogo.png";
+import Footer from "@/components/Footer";
 const testimonialsCol1 = [
   {
     name: "Sarah Jenkins",
@@ -116,7 +117,7 @@ export default function Home() {
           <div className="absolute bottom-[10%] right-[15%] w-[600px] h-[600px] bg-[#4177fd]/8 rounded-full blur-[160px] pointer-events-none"></div>
         </div>
 
-        <div className="relative z-10 w-full max-w-[1280px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        <div className="relative z-10 w-full max-w-[1280px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-start">
           {/* Left Column: Heading, Subtitle, CTAs, Metrics (Frame 870) */}
           <div className="lg:col-span-7 flex flex-col items-start text-left">
             {/* Main Title Heading (Frame 396) */}
@@ -218,8 +219,8 @@ export default function Home() {
           </div>
 
           {/* Right Column: Concentric Circles & Floating Badges Graphic (Group 123) */}
-          <div className="lg:col-span-5 flex items-center justify-center">
-            <div className="relative w-full max-w-[433px] aspect-square flex items-center justify-center select-none">
+          <div className="lg:col-span-5 flex justify-center  lg:justify-center items-center">
+            <div className="relative w-full max-w-[433px] aspect-square flex items-center justify-center mx-auto">
 
               {/* Concentric Circles */}
               {/* Outer Ring (Ellipse 81) */}
@@ -509,6 +510,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
