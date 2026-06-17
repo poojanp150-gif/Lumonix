@@ -25,11 +25,11 @@ export default function Navbar() {
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
-
+    // backdrop-blur-md
     return (
         <header
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-                ? "bg-[#0b0c10]/90 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.1)] border-b border-white/5 h-[72px]"
+            className={`fixed top-0 left-0 right-0 z-50 p-5 xl:p-0 transition-all duration-300 ${isScrolled
+                ? "bg-[#0b0c10]/90 lg:backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.1)] border-b border-white/5 h-[72px]"
                 : "bg-[#0b0c10] shadow-[0_2px_4px_rgba(55,55,55,0.25)] h-[78px]"
                 } flex items-center`}
         >
@@ -53,9 +53,6 @@ export default function Navbar() {
                                 }`}
                         >
                             Home
-                            {isActive("/") && (
-                                <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#9390f9] rounded-full"></span>
-                            )}
                         </Link>
                         <Link
                             href="/about"
@@ -63,84 +60,16 @@ export default function Navbar() {
                                 }`}
                         >
                             About us
-                            {isActive("/about") && (
-                                <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#9390f9] rounded-full"></span>
-                            )}
-                        </Link>
 
-                        {/* Dropdown Link (Services) */}
-                        <div
-                            className="relative"
-                            onMouseEnter={() => setIsServicesOpen(true)}
-                            onMouseLeave={() => setIsServicesOpen(false)}
+                        </Link>
+                        <Link
+                            href="/services"
+                            className={`transition-colors duration-200 font-medium relative py-2 ${isActive("/services") ? "text-white" : "text-[#7c7c7c] hover:text-white"
+                                }`}
                         >
-                            <button
-                                className={`flex items-center gap-1.5 transition-colors duration-200 focus:outline-none py-2 ${isServicesOpen || isMobileMenuOpen || pathname.startsWith("/services") ? "text-white" : "text-[#7c7c7c] hover:text-white"
-                                    }`}
-                                aria-expanded={isServicesOpen}
-                                onClick={() => setIsServicesOpen(!isServicesOpen)}
-                            >
-                                Services
-                                <svg
-                                    className={`w-3 h-3 transition-transform duration-300 ${isServicesOpen ? "transform rotate-180 text-white" : "text-[#7c7c7c]"
-                                        }`}
-                                    viewBox="0 0 10 6"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <path
-                                        d="M1 1L5 5L9 1"
-                                        stroke="currentColor"
-                                        strokeWidth="1.5"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                    />
-                                </svg>
-                            </button>
-                            {/* Dropdown Menu - Custom Glassmorphic Card */}
-                            <div
-                                className={`absolute left-0 mt-2 w-64 rounded-2xl bg-[#111218]/95 border border-white/10 p-4 shadow-[0_10px_40px_rgba(0,0,0,0.5)] backdrop-blur-lg transition-all duration-300 origin-top-left ${isServicesOpen
-                                    ? "opacity-100 translate-y-0 scale-100 pointer-events-auto"
-                                    : "opacity-0 -translate-y-2 scale-95 pointer-events-none"
-                                    }`}
-                            >
-                                <div className="flex flex-col gap-1">
-                                    <Link
-                                        href="/services#cloud"
-                                        className="flex flex-col p-2.5 rounded-xl hover:bg-white/5 transition-colors duration-200 group/item"
-                                    >
-                                        <span className="text-[15px] font-semibold text-white group-hover/item:text-[#4177fd] transition-colors duration-200">
-                                            Cloud Migration
-                                        </span>
-                                        <span className="text-[12px] text-[#7c7c7c] mt-0.5">
-                                            Secure, scalable cloud transitions.
-                                        </span>
-                                    </Link>
-                                    <Link
-                                        href="/services#software"
-                                        className="flex flex-col p-2.5 rounded-xl hover:bg-white/5 transition-colors duration-200 group/item"
-                                    >
-                                        <span className="text-[15px] font-semibold text-white group-hover/item:text-[#4177fd] transition-colors duration-200">
-                                            Custom Software
-                                        </span>
-                                        <span className="text-[12px] text-[#7c7c7c] mt-0.5">
-                                            Tailored web and mobile apps.
-                                        </span>
-                                    </Link>
-                                    <Link
-                                        href="/services#infrastructure"
-                                        className="flex flex-col p-2.5 rounded-xl hover:bg-white/5 transition-colors duration-200 group/item"
-                                    >
-                                        <span className="text-[15px] font-semibold text-white group-hover/item:text-[#4177fd] transition-colors duration-200">
-                                            IT Infrastructure
-                                        </span>
-                                        <span className="text-[12px] text-[#7c7c7c] mt-0.5">
-                                            Modern enterprise network setup.
-                                        </span>
-                                    </Link>
-                                </div>
-                            </div>
-                        </div>
+                            Services
+
+                        </Link>
 
                         <Link
                             href="/work"
@@ -148,9 +77,7 @@ export default function Navbar() {
                                 }`}
                         >
                             Work
-                            {isActive("/work") && (
-                                <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#9390f9] rounded-full"></span>
-                            )}
+
                         </Link>
                         <Link
                             href="/contact"
@@ -158,9 +85,7 @@ export default function Navbar() {
                                 }`}
                         >
                             Contact
-                            {isActive("/contact") && (
-                                <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#9390f9] rounded-full"></span>
-                            )}
+
                         </Link>
                     </nav>
                 </div>
@@ -213,7 +138,7 @@ export default function Navbar() {
             >
                 <div className="flex items-center justify-between mb-8">
                     <span className="text-xl font-bold tracking-wider text-white">
-                        Lumonix
+                        Lumoonix
                     </span>
                     <button
                         onClick={() => setIsMobileMenuOpen(false)}
@@ -252,37 +177,16 @@ export default function Navbar() {
                     >
                         About us
                     </Link>
-                    <div className="flex flex-col gap-2">
-                        <span className="text-[#7c7c7c] font-semibold text-sm uppercase tracking-wider">
-                            Services
-                        </span>
-                        <div className="pl-4 flex flex-col gap-4 border-l border-white/10 mt-1">
-                            <Link
-                                href="/services#cloud"
-                                onClick={() => setIsMobileMenuOpen(false)}
-                                className={`text-base ${pathname === "/services#cloud" ? "text-white font-semibold" : "text-[#7c7c7c] hover:text-white"
-                                    }`}
-                            >
-                                Cloud Migration
-                            </Link>
-                            <Link
-                                href="/services#software"
-                                onClick={() => setIsMobileMenuOpen(false)}
-                                className={`text-base ${pathname === "/services#software" ? "text-white font-semibold" : "text-[#7c7c7c] hover:text-white"
-                                    }`}
-                            >
-                                Custom Software
-                            </Link>
-                            <Link
-                                href="/services#infrastructure"
-                                onClick={() => setIsMobileMenuOpen(false)}
-                                className={`text-base ${pathname === "/services#infrastructure" ? "text-white font-semibold" : "text-[#7c7c7c] hover:text-white"
-                                    }`}
-                            >
-                                IT Infrastructure
-                            </Link>
-                        </div>
-                    </div>
+                    <Link
+                        href="/services"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className={`transition-colors duration-200 border-b border-white/5 pb-2 ${isActive("/services") ? "text-white font-semibold" : "text-[#7c7c7c] hover:text-white"
+                            }`}
+                    >
+                        Services
+
+                    </Link>
+
                     <Link
                         href="/work"
                         onClick={() => setIsMobileMenuOpen(false)}

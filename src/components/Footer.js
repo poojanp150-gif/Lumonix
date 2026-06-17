@@ -61,15 +61,29 @@ export default function Footer() {
 
             </div>
 
-            {/* Slogan */}
-            <p className="text-[#9f9f9f] text-[16px] leading-relaxed max-w-[355px] font-[family-name:var(--font-inter)] font-normal">
-              Crafting premium digital identities for brands that dare to be different.
-            </p>
+            <div className="flex flex-col gap-2">
+
+              <h1 >
+                Turning Ideas Into Reality.
+              </h1>
+              {/* Slogan */}
+              <p className="text-[#9f9f9f] text-[16px] leading-relaxed max-w-[355px] font-[family-name:var(--font-inter)] font-normal">
+                We help businesses transform ideas into scalable digital products through Shopify development, AI automation, and full stack engineering.
+              </p>
+            </div>
 
             {/* Location Tag */}
-            <span className="text-sm text-[#7c7c7c] font-[family-name:var(--font-inter)] font-medium">
-              Est. 2026 · Brooklyn / AHMEDABAD
-            </span>
+            <div className="flex flex-col gap-2">
+              <span className="text-sm text-[#7c7c7c] font-[family-name:var(--font-inter)] font-medium">
+                info@lumoonix.com
+              </span>
+              <span className="text-sm text-[#7c7c7c] font-[family-name:var(--font-inter)] font-medium">
+                +91 70469 41095
+              </span>
+              <span className="text-sm text-[#7c7c7c] font-[family-name:var(--font-inter)] font-medium">
+                Ahmedabad, Gujarat, India
+              </span>
+            </div>
           </div>
 
           {/* Right Columns: Links & Clock */}
@@ -93,10 +107,12 @@ export default function Footer() {
                 Services
               </h4>
               <ul className="flex flex-col gap-2.5 text-[15px] font-[family-name:var(--font-inter)] font-medium text-[#9f9f9f]">
-                <li><Link href="/services#brand" className="hover:text-white transition-colors duration-200">Brand</Link></li>
-                <li><Link href="/services#web" className="hover:text-white transition-colors duration-200">Web</Link></li>
-                <li><Link href="/services#product" className="hover:text-white transition-colors duration-200">Product</Link></li>
-                <li><Link href="/services#motion" className="hover:text-white transition-colors duration-200">Motion</Link></li>
+                <li><Link href="/services#brand" className="hover:text-white transition-colors duration-200">Shopify Development</Link></li>
+                <li><Link href="/services#web" className="hover:text-white transition-colors duration-200">AI Automation</Link></li>
+                <li><Link href="/services#product" className="hover:text-white transition-colors duration-200">Full Stack Development</Link></li>
+                <li><Link href="/services#motion" className="hover:text-white transition-colors duration-200">App Development</Link></li>
+                <li><Link href="/services#motion" className="hover:text-white transition-colors duration-200">SEO & Marketing</Link></li>
+                <li><Link href="/services#motion" className="hover:text-white transition-colors duration-200">CRO & A/B Testing</Link></li>
               </ul>
             </div>
 
@@ -109,7 +125,6 @@ export default function Footer() {
                 <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors duration-200">Instagram</a></li>
                 <li><a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors duration-200">LinkedIn</a></li>
                 <li><a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors duration-200">Twitter</a></li>
-                <li><a href="https://behance.net" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors duration-200">Behance</a></li>
               </ul>
             </div>
 

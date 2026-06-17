@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Footer from "./Footer";
+import HeroGraphic from "./HeroGraphic";
 
 const techStack = [
   {
@@ -296,65 +297,18 @@ const projectsData = [
   }
 ];
 
-export default function Work() {
+export function WorkGrid({ showTabs = true }) {
   const [activeTab, setActiveTab] = useState("All");
   const filteredProjects = activeTab === "All"
     ? projectsData
     : projectsData.filter((project) => project.tabs.includes(activeTab));
 
   return (
-    <div className="flex flex-col min-h-[calc(100vh-78px)] bg-[#0b0c10] text-white">
-      {/* Hero Section */}
-      <section className="relative w-full min-h-[627px] flex items-center justify-center overflow-hidden px-4 md:px-10 lg:px-20 py-16 md:py-24 border-b border-white/5 bg-[#0b0c10]">
-        {/* Tech Grid & Glow Background */}
-        <div className="absolute inset-0 z-0 pointer-events-none">
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:4.5rem_4.5rem]"></div>
-        </div>
+    <section id="portfolio-grid" className="w-full bg-[#0b0c10] py-5 sm:py-20 relative overflow-hidden border-b border-white/5">
+      <div className="w-full max-w-[1280px] mx-auto px-4 md:px-10">
 
-
-        <div className="z-10 w-full max-w-[1280px] mx-auto">
-
-          <div className="flex flex-col items-start text-left">
-
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 mb-6 shrink-0">
-              <span className="w-2 h-2 rounded-full bg-[#9390f9]"></span>
-              <span className="text-[10px] font-semibold uppercase tracking-wider text-[#bbb2b2] font-[family-name:var(--font-poppins)]">
-                OUR WORK
-              </span>
-            </div>
-
-
-            <h1 className="text-[42px] sm:text-[56px] lg:text-[76px] lg:leading-[91px] font-semibold text-white tracking-tight mb-6 font-[family-name:var(--font-poppins)]">
-              Designs That <br />
-              <span className="text-[#9390f9]">
-                Drive Results
-              </span>
-            </h1>
-
-
-            <p className="text-lg md:text-[24px] text-[#9f9f9f] leading-relaxed max-w-[620px] mb-10 font-[family-name:var(--font-inter)] font-normal">
-              With over 20 years of experience, we can deliver great results for your
-            </p>
-
-
-            <a
-              href="#portfolio-grid"
-              className="group/btn inline-flex items-center justify-center px-8 h-[60px] rounded-full bg-[#9390f9] hover:bg-[#827ef5] text-[#0b0c10] font-[family-name:var(--font-inter)] font-medium text-lg transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] shadow-lg"
-            >
-              View All Projects
-              <span className="ml-2 transform transition-transform duration-300 group-hover/btn:translate-x-1">
-                →
-              </span>
-            </a>
-          </div>
-        </div>
-      </section >
-
-      {/* Portfolio Grid Section */}
-      < section id="portfolio-grid" className="w-full bg-[#0b0c10] py-20 relative  overflow-hidden border-b border-white/5" >
-        <div className="w-full max-w-[1280px] mx-auto px-4 md:px-10">
-
-          {/* Category Tabs (Frame 934 Style) */}
+        {/* Category Tabs (Frame 934 Style) */}
+        {showTabs && (
           <div className="w-full bg-[#0B0C10] border border-white/10 rounded-full h-[83px] flex items-center px-4 md:px-8 mb-16 shadow-[0_4px_20px_rgba(255,255,255,0.03)] justify-between overflow-x-auto whitespace-nowrap scrollbar-none">
             {["All", "Website Design", "Moblie App", "Branding", "Dashboard UI"].map((tab) => (
               <button
@@ -369,108 +323,139 @@ export default function Work() {
               </button>
             ))}
           </div>
+        )}
 
-          {/* Balanced Portfolio Grid Layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-[30px] items-start mb-16">
+        {/* Balanced Portfolio Grid Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-[30px] items-start mb-16">
 
-            {/* Left Column */}
-            <div className="flex flex-col gap-[30px] w-full">
-              {/* Card 1: Aurora (Large Card) */}
-              {filteredProjects.some((p) => p.id === "01") && (
+          {/* Left Column */}
+          <div className="flex flex-col gap-[30px] w-full">
+            {/* Card 1: Aurora (Large Card) */}
+            {filteredProjects.some((p) => p.id === "01") && (
+              <div
+                className="group relative w-full lg:h-[560px] min-h-[480px] rounded-2xl overflow-hidden border border-white/5 shadow-[0_0_4px_rgba(255,255,255,0.25)] flex flex-col justify-between p-8 transition-all duration-500 hover:scale-[1.01] hover:border-white/15"
+
+              >
                 <div
-                  className="group relative w-full lg:h-[560px] min-h-[480px] rounded-2xl overflow-hidden border border-white/5 shadow-[0_0_4px_rgba(255,255,255,0.25)] flex flex-col justify-between p-8 transition-all duration-500 hover:scale-[1.01] hover:border-white/15"
-
-                >
-                  <div
-                    className="absolute -top-20 -right-20 w-[200px] h-[200px] rounded-full"
-                    style={{
-                      background:
-                        "radial-gradient(circle, rgba(99,92,255,0.8) 0%, rgba(99,92,255,0) 70%)",
-                    }}
-                  />
-                  {/* Background Graphic */}
-                  <div className="absolute inset-0 z-0 pointer-events-none opacity-80 group-hover:opacity-100 transition-opacity duration-500">
-                    {projectsData[0].graphic}
-                  </div>
-
-                  {/* Header */}
-                  <div className="flex justify-between items-center z-10 font-mono text-xs text-[#bbb2b2]">
-                    <span>{projectsData[0].num}</span>
-                    <span className="text-base">{projectsData[0].year}</span>
-                  </div>
-
-                  {/* Footer */}
-                  <div className="flex justify-between items-end mt-auto z-10 pt-8">
-                    <div>
-
-                      <h3 className="text-2xl md:text-3xl font-[family-name:var(--font-poppins)] font-medium text-white hover:text-[#9390f9] transition-colors duration-200">
-                        {projectsData[0].title}
-                      </h3>
-                      <p className="text-sm text-neutral-400 max-w-[420px] font-light leading-relaxed font-[family-name:var(--font-inter)]">
-                        Lumoonix transforms bold ideas into stunning websites, apps and premium cloud-native software.
-                      </p>
-                    </div>
-                    <button className="w-12 h-12 rounded-full bg-white/5 border border-white/10 hover:bg-[#9390f9] hover:text-[#0b0c10] text-white flex items-center justify-center transition-all duration-300 group-hover:rotate-45 shrink-0 shadow-md">
-                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                      </svg>
-                    </button>
-                  </div>
+                  className="absolute -top-20 -right-20 w-[200px] h-[200px] rounded-full"
+                  style={{
+                    background:
+                      "radial-gradient(circle, rgba(99,92,255,0.8) 0%, rgba(99,92,255,0) 70%)",
+                  }}
+                />
+                {/* Background Graphic */}
+                <div className="absolute inset-0 z-0 pointer-events-none opacity-80 group-hover:opacity-100 transition-opacity duration-500">
+                  {projectsData[0].graphic}
                 </div>
-              )}
 
-              {/* Card 5: Annual / 24 */}
-              {filteredProjects.some((p) => p.id === "05") && (
-                <div className="group relative w-full h-[265px] rounded-2xl overflow-hidden border border-white/5 shadow-2xl flex flex-col justify-between p-5 transition-all duration-500 hover:scale-[1.01] hover:border-white/15 bg-[#0b0d14]">
-                  {/* Background Graphic */}
-                  {/* <div className="absolute inset-0 z-0 pointer-events-none opacity-40 group-hover:opacity-60 transition-opacity duration-500">
+                {/* Header */}
+                <div className="flex justify-between items-center z-10 font-mono text-xs text-[#bbb2b2]">
+                  <span>{projectsData[0].num}</span>
+                  <span className="text-base">{projectsData[0].year}</span>
+                </div>
+
+                {/* Footer */}
+                <div className="flex justify-between items-end mt-auto z-10 pt-8">
+                  <div>
+
+                    <h3 className="text-2xl md:text-3xl font-[family-name:var(--font-poppins)] font-medium text-white hover:text-[#9390f9] transition-colors duration-200">
+                      {projectsData[0].title}
+                    </h3>
+                    <p className="text-sm text-neutral-400 max-w-[420px] font-light leading-relaxed font-[family-name:var(--font-inter)]">
+                      Lumoonix transforms bold ideas into stunning websites, apps and premium cloud-native software.
+                    </p>
+                  </div>
+                  <button className="w-12 h-12 rounded-full bg-white/5 border border-white/10 hover:bg-[#9390f9] hover:text-[#0b0c10] text-white flex items-center justify-center transition-all duration-300 group-hover:rotate-45 shrink-0 shadow-md">
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Card 5: Annual / 24 */}
+            {filteredProjects.some((p) => p.id === "05") && (
+              <div className="group relative w-full h-[265px] rounded-2xl overflow-hidden border border-white/5 shadow-2xl flex flex-col justify-between p-5 transition-all duration-500 hover:scale-[1.01] hover:border-white/15 bg-[#0b0d14]">
+                {/* Background Graphic */}
+                {/* <div className="absolute inset-0 z-0 pointer-events-none opacity-40 group-hover:opacity-60 transition-opacity duration-500">
                     {projectsData[4].graphic}
                   </div> */}
 
-                  {/* Header */}
-                  <div className="flex justify-between items-center z-10 font-mono text-xs text-[#bbb2b2]">
-                    <span>{projectsData[4].num}</span>
-                    <span className="text-base">{projectsData[4].year}</span>
-                  </div>
-
-                  {/* Footer */}
-                  <div className="flex justify-between items-end mt-auto z-10">
-                    <h3 className="text-2xl md:text-3xl font-[family-name:var(--font-poppins)] font-medium text-white hover:text-[#9390f9] transition-colors duration-200">
-                      {projectsData[4].title}
-                    </h3>
-                    <button className="w-12 h-12 rounded-full bg-white/5 border border-white/10 hover:bg-[#9390f9] hover:text-[#0b0c10] text-white flex items-center justify-center transition-all duration-300 group-hover:rotate-45 shrink-0 shadow-md">
-                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                      </svg>
-                    </button>
-                  </div>
+                {/* Header */}
+                <div className="flex justify-between items-center z-10 font-mono text-xs text-[#bbb2b2]">
+                  <span>{projectsData[4].num}</span>
+                  <span className="text-base">{projectsData[4].year}</span>
                 </div>
-              )}
-            </div>
 
-            {/* Right Column */}
-            <div className="flex flex-col gap-[30px] w-full">
-              {/* Card 2: Halcyon Editorial */}
-              {filteredProjects.some((p) => p.id === "02") && (
-                <div className="group relative w-full h-[265px] rounded-2xl overflow-hidden border border-white/5 shadow-2xl flex flex-col justify-between p-5 transition-all duration-500 hover:scale-[1.01] hover:border-white/15 bg-[#0b0d14]">
-                  {/* Background Graphic */}
-                  {/* <div className="absolute inset-0 z-0 pointer-events-none opacity-40 group-hover:opacity-60 transition-opacity duration-500">
+                {/* Footer */}
+                <div className="flex justify-between items-end mt-auto z-10">
+                  <h3 className="text-2xl md:text-3xl font-[family-name:var(--font-poppins)] font-medium text-white hover:text-[#9390f9] transition-colors duration-200">
+                    {projectsData[4].title}
+                  </h3>
+                  <button className="w-12 h-12 rounded-full bg-white/5 border border-white/10 hover:bg-[#9390f9] hover:text-[#0b0c10] text-white flex items-center justify-center transition-all duration-300 group-hover:rotate-45 shrink-0 shadow-md">
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Right Column */}
+          <div className="flex flex-col gap-[30px] w-full">
+            {/* Card 2: Halcyon Editorial */}
+            {filteredProjects.some((p) => p.id === "02") && (
+              <div className="group relative w-full h-[265px] rounded-2xl overflow-hidden border border-white/5 shadow-2xl flex flex-col justify-between p-5 transition-all duration-500 hover:scale-[1.01] hover:border-white/15 bg-[#0b0d14]">
+                {/* Background Graphic */}
+                {/* <div className="absolute inset-0 z-0 pointer-events-none opacity-40 group-hover:opacity-60 transition-opacity duration-500">
                     {projectsData[1].graphic}
                   </div> */}
 
+                {/* Header */}
+                <div className="flex justify-between items-center z-10 font-mono text-xs text-[#bbb2b2]">
+                  <span>{projectsData[1].num}</span>
+                  <span className="text-base">{projectsData[1].year}</span>
+                </div>
+
+                {/* Footer */}
+                <div className="flex justify-between items-end mt-auto z-10">
+                  <h3 className="text-2xl md:text-3xl font-[family-name:var(--font-poppins)] font-medium text-white hover:text-[#9390f9] transition-colors duration-200">
+                    {projectsData[1].title}
+                  </h3>
+                  <button className="w-12 h-12 rounded-full bg-white/5 border border-white/10 hover:bg-[#9390f9] hover:text-[#0b0c10] text-white flex items-center justify-center transition-all duration-300 group-hover:rotate-45 shrink-0 shadow-md">
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Sub grid for Card 3 and Card 4 */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-[30px] w-full">
+              {/* Card 3: Field Notes */}
+              {filteredProjects.some((p) => p.id === "03") && (
+                <div className="group relative w-full h-[265px] rounded-2xl overflow-hidden border border-white/5 shadow-2xl flex flex-col justify-between p-5 transition-all duration-500 hover:scale-[1.01] hover:border-white/15 bg-[#0b0d14]">
+                  {/* Background Graphic */}
+                  {/* <div className="absolute inset-0 z-0 pointer-events-none opacity-40 group-hover:opacity-60 transition-opacity duration-500">
+                      {projectsData[2].graphic}
+                    </div> */}
+
                   {/* Header */}
                   <div className="flex justify-between items-center z-10 font-mono text-xs text-[#bbb2b2]">
-                    <span>{projectsData[1].num}</span>
-                    <span className="text-base">{projectsData[1].year}</span>
+                    <span>{projectsData[2].num}</span>
+                    <span className="text-base">{projectsData[2].year}</span>
                   </div>
 
                   {/* Footer */}
                   <div className="flex justify-between items-end mt-auto z-10">
-                    <h3 className="text-2xl md:text-3xl font-[family-name:var(--font-poppins)] font-medium text-white hover:text-[#9390f9] transition-colors duration-200">
-                      {projectsData[1].title}
+                    <h3 className="text-xl md:text-2xl font-[family-name:var(--font-poppins)] font-medium text-white hover:text-[#9390f9] transition-colors duration-200">
+                      {projectsData[2].title}
                     </h3>
-                    <button className="w-12 h-12 rounded-full bg-white/5 border border-white/10 hover:bg-[#9390f9] hover:text-[#0b0c10] text-white flex items-center justify-center transition-all duration-300 group-hover:rotate-45 shrink-0 shadow-md">
-                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <button className="w-10 h-10 rounded-full bg-white/5 border border-white/10 hover:bg-[#9390f9] hover:text-[#0b0c10] text-white flex items-center justify-center transition-all duration-300 group-hover:rotate-45 shrink-0 shadow-md">
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                       </svg>
                     </button>
@@ -478,112 +463,121 @@ export default function Work() {
                 </div>
               )}
 
-              {/* Sub grid for Card 3 and Card 4 */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-[30px] w-full">
-                {/* Card 3: Field Notes */}
-                {filteredProjects.some((p) => p.id === "03") && (
-                  <div className="group relative w-full h-[265px] rounded-2xl overflow-hidden border border-white/5 shadow-2xl flex flex-col justify-between p-5 transition-all duration-500 hover:scale-[1.01] hover:border-white/15 bg-[#0b0d14]">
-                    {/* Background Graphic */}
-                    {/* <div className="absolute inset-0 z-0 pointer-events-none opacity-40 group-hover:opacity-60 transition-opacity duration-500">
-                      {projectsData[2].graphic}
-                    </div> */}
-
-                    {/* Header */}
-                    <div className="flex justify-between items-center z-10 font-mono text-xs text-[#bbb2b2]">
-                      <span>{projectsData[2].num}</span>
-                      <span className="text-base">{projectsData[2].year}</span>
-                    </div>
-
-                    {/* Footer */}
-                    <div className="flex justify-between items-end mt-auto z-10">
-                      <h3 className="text-xl md:text-2xl font-[family-name:var(--font-poppins)] font-medium text-white hover:text-[#9390f9] transition-colors duration-200">
-                        {projectsData[2].title}
-                      </h3>
-                      <button className="w-10 h-10 rounded-full bg-white/5 border border-white/10 hover:bg-[#9390f9] hover:text-[#0b0c10] text-white flex items-center justify-center transition-all duration-300 group-hover:rotate-45 shrink-0 shadow-md">
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                        </svg>
-                      </button>
-                    </div>
+              {/* Card 4: Palette 04 */}
+              {filteredProjects.some((p) => p.id === "04") && (
+                <div className="group relative w-full h-[265px] rounded-2xl overflow-hidden border border-white/5 shadow-2xl flex flex-col justify-between p-5 transition-all duration-500 hover:scale-[1.01] hover:border-white/15 bg-[#0b0d14]">
+                  {/* Background Graphic */}
+                  <div className="absolute inset-0 z-0 pointer-events-none opacity-90 group-hover:opacity-80 transition-opacity duration-500">
+                    {projectsData[3].graphic}
                   </div>
-                )}
 
-                {/* Card 4: Palette 04 */}
-                {filteredProjects.some((p) => p.id === "04") && (
-                  <div className="group relative w-full h-[265px] rounded-2xl overflow-hidden border border-white/5 shadow-2xl flex flex-col justify-between p-5 transition-all duration-500 hover:scale-[1.01] hover:border-white/15 bg-[#0b0d14]">
-                    {/* Background Graphic */}
-                    <div className="absolute inset-0 z-0 pointer-events-none opacity-90 group-hover:opacity-80 transition-opacity duration-500">
-                      {projectsData[3].graphic}
-                    </div>
-
-                    {/* Header */}
-                    <div className="flex justify-between items-center z-10 font-mono text-xs text-[#bbb2b2]">
-                      <span>{projectsData[3].num}</span>
-                      <span className="text-base">{projectsData[3].year}</span>
-                    </div>
-
-                    {/* Footer */}
-                    <div className="flex justify-between items-end mt-auto z-10">
-                      <h3 className="text-xl md:text-2xl font-[family-name:var(--font-poppins)] font-medium text-white hover:text-[#9390f9] transition-colors duration-200">
-                        {projectsData[3].title}
-                      </h3>
-                      <button className="w-10 h-10 rounded-full bg-white/5 border border-white/10 hover:bg-[#9390f9] hover:text-[#0b0c10] text-white flex items-center justify-center transition-all duration-300 group-hover:rotate-45 shrink-0 shadow-md">
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                        </svg>
-                      </button>
-                    </div>
+                  {/* Header */}
+                  <div className="flex justify-between items-center z-10 font-mono text-xs text-[#bbb2b2]">
+                    <span>{projectsData[3].num}</span>
+                    <span className="text-base">{projectsData[3].year}</span>
                   </div>
-                )}
-              </div>
 
-              {/* Bottom Right: "Have a project in mind ?" CTA Card */}
-              <div className="w-full h-[265px] rounded-2xl bg-[#08090e] border border-white/10 p-8 flex flex-col justify-between relative shadow-2xl group overflow-hidden">
-                {/* Glow effect */}
-
-                <div className="flex flex-col gap-4 z-10 text-left">
-                  <span className="text-[10px] tracking-widest font-semibold text-[#7c7c7c] uppercase font-[family-name:var(--font-poppins)] block">
-                    READY TO COLLABORATE?
-                  </span>
-                  <h3 className="text-2xl md:text-3xl font-[family-name:var(--font-poppins)] text-white">
-                    Have a project in mind?
-                  </h3>
-                  <p className="text-sm text-neutral-400 max-w-[420px] font-light leading-relaxed font-[family-name:var(--font-inter)]">
-                    Lumoonix transforms bold ideas into stunning websites, apps and premium cloud-native software.
-                  </p>
+                  {/* Footer */}
+                  <div className="flex justify-between items-end mt-auto z-10">
+                    <h3 className="text-xl md:text-2xl font-[family-name:var(--font-poppins)] font-medium text-white hover:text-[#9390f9] transition-colors duration-200">
+                      {projectsData[3].title}
+                    </h3>
+                    <button className="w-10 h-10 rounded-full bg-white/5 border border-white/10 hover:bg-[#9390f9] hover:text-[#0b0c10] text-white flex items-center justify-center transition-all duration-300 group-hover:rotate-45 shrink-0 shadow-md">
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                      </svg>
+                    </button>
+                  </div>
                 </div>
-                <Link
-                  href="/contact"
-                  className="w-fit inline-flex items-center justify-center px-6 h-[44px] rounded-lg bg-[#9390f9] hover:bg-[#827ef5] text-[#0b0c10] font-[family-name:var(--font-inter)] font-semibold text-sm transition-all duration-300 hover:scale-[1.03] shadow-md shrink-0 z-10"
-                >
-                  Start Your Project &rarr;
-                </Link>
-              </div>
+              )}
             </div>
 
+            {/* Bottom Right: "Have a project in mind ?" CTA Card */}
+            <div className="w-full h-[265px] rounded-2xl bg-[#08090e] border border-white/10 p-8 flex flex-col justify-between relative shadow-2xl group overflow-hidden">
+              {/* Glow effect */}
+
+              <div className="flex flex-col gap-4 z-10 text-left">
+                <span className="text-[10px] tracking-widest font-semibold text-[#7c7c7c] uppercase font-[family-name:var(--font-poppins)] block">
+                  READY TO COLLABORATE?
+                </span>
+                <h3 className="text-2xl md:text-3xl font-[family-name:var(--font-poppins)] text-white">
+                  Have a project in mind?
+                </h3>
+                <p className="text-sm text-neutral-400 max-w-[420px] font-light leading-relaxed font-[family-name:var(--font-inter)]">
+                  Lumoonix transforms bold ideas into stunning websites, apps and premium cloud-native software.
+                </p>
+              </div>
+              <Link
+                href="/contact"
+                className="w-fit inline-flex items-center justify-center px-6 h-[44px] rounded-lg bg-[#9390f9] hover:bg-[#827ef5] text-[#0b0c10] font-[family-name:var(--font-inter)] font-semibold text-sm transition-all duration-300 hover:scale-[1.03] shadow-md shrink-0 z-10"
+              >
+                Start Your Project &rarr;
+              </Link>
+            </div>
           </div>
+
         </div>
-      </section >
+      </div>
+    </section>
+  );
+}
 
+export default function Work() {
+  return (
+    <div className="flex flex-col min-h-[calc(100vh-78px)] bg-[#0b0c10] text-white">
+      {/* Hero Section */}
+      <section className="relative w-full min-h-[627px] flex items-center justify-center overflow-hidden px-4 md:px-10 lg:px-20 py-16 md:py-24 border-b border-white/5 bg-[#0b0c10]">
+        {/* Tech Grid & Glow Background */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:4.5rem_4.5rem]"></div>
+        </div>
 
+        <div className="z-10 w-full max-w-[1280px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          <div className="lg:col-span-7 flex flex-col items-start text-left">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 mb-6 shrink-0">
+              <span className="w-2 h-2 rounded-full bg-[#9390f9]"></span>
+              <span className="text-[10px] font-semibold uppercase tracking-wider text-[#bbb2b2] font-[family-name:var(--font-poppins)]">
+                OUR WORK
+              </span>
+            </div>
 
+            <h1 className="text-[42px] sm:text-[56px] lg:text-[76px] lg:leading-[91px] font-semibold text-white tracking-tight mb-6 font-[family-name:var(--font-poppins)]">
+              Designs That <br />
+              <span className="text-[#9390f9]">
+                Drive Results
+              </span>
+            </h1>
+
+            <p className="text-lg md:text-[24px] text-[#9f9f9f] leading-relaxed max-w-[620px] mb-10 font-[family-name:var(--font-inter)] font-normal">
+              Strategic and scalable design systems built to elevate brands and drive business outcomes.
+            </p>
+
+            <a
+              href="#portfolio-grid"
+              className="group/btn inline-flex items-center justify-center px-8 h-[60px] rounded-full bg-[#9390f9] hover:bg-[#827ef5] text-[#0b0c10] font-[family-name:var(--font-inter)] font-medium text-lg transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] shadow-lg"
+            >
+              View All Projects
+              <span className="ml-2 transform transition-transform duration-300 group-hover/btn:translate-x-1">
+                →
+              </span>
+            </a>
+          </div>
+
+          <HeroGraphic />
+        </div>
+      </section>
+
+      {/* Portfolio Grid Section */}
+      <WorkGrid showTabs={true} />
 
       {/* Featured Fintech Case Study Section */}
-      < section className="w-full bg-[#0b0c10] py-24 border-b border-white/5 relative overflow-hidden" >
+      <section className="w-full bg-[#0b0c10] py-5 sm:py-24 border-b border-white/5 relative overflow-hidden">
         {/* Glow Spheres */}
         < div className="absolute top-[30%] right-[10%] w-[350px] h-[350px] bg-[#4177fd]/5 rounded-full blur-[100px] pointer-events-none" ></div >
 
         <div className="w-full max-w-[1280px] mx-auto px-4 md:px-10">
           {/* Header Row */}
-          {/* <div className="flex flex-col items-start gap-4 mb-16">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 mb-2 shrink-0">
-              <span className="w-2 h-2 rounded-full bg-[#9390f9]"></span>
-              <span className="text-[10px] font-semibold uppercase tracking-wider text-[#bbb2b2] font-[family-name:var(--font-poppins)]">
-                CASE STUDY
-              </span>
-            </div>
 
-          </div> */}
 
           <div className="flex flex-col lg:flex-row gap-12 items-center">
 
@@ -876,7 +870,7 @@ export default function Work() {
               Ready to Start Your <span className="text-[#9390f9]">Next Project?</span>
             </h2>
             <p className="text-sm sm:text-lg lg:text-[20px] text-[#b2b2b2] font-light max-w-[750px] mx-auto leading-relaxed font-[family-name:var(--font-inter)]">
-              Tell us about your project and we'll get back within one business day.
+              Tell us about your project and we&apos;ll get back within one business day.
             </p>
           </div>
 

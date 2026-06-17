@@ -1,15 +1,16 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Footer from "@/components/Footer";
 import smalllogo from "../../public/smalllogo.png";
 import mainabout from "../../public/mainabout.png";
-import aboutimg1 from "../../public/aboutimg1.png"
-import aboutimg2 from "../../public/aboutimg2.png"
-import aboutimg3 from "../../public/aboutimg3.png"
-import aboutimg4 from "../../public/aboutimg4.png"
+import aboutimg1 from "../../public/aboutimg1.png";
+import aboutimg2 from "../../public/aboutimg2.png";
+import aboutimg3 from "../../public/aboutimg3.png";
+import aboutimg4 from "../../public/aboutimg4.png";
+
 const testimonialsCol1 = [
   {
     name: "Sarah Jenkins",
@@ -124,7 +125,256 @@ const teamMembers = [
   }
 ];
 
+export function AboutSection() {
+  return (
+    <section className="w-full bg-white text-black lg:h-[793px] flex items-center justify-center overflow-hidden relative py-16 lg:py-0">
+      <div className="w-full max-w-[1440px] h-full mx-auto md:px-6 lg:px-[60px] flex flex-col lg:flex-row items-center justify-between lg:gap-12 lg:gap-0 relative z-10">
+        <div className="inline-flex lg:hidden items-center gap-2 px-3 py-1.5 rounded-full bg-[#7f7f7f]/15 border border-neutral-200/50 mb-6">
+          <span className="w-2 h-2 rounded-full bg-[#06007c]"></span>
+          <span className="text-[10px] font-semibold uppercase tracking-wider text-[#595858] font-[family-name:var(--font-poppins)]">
+            ABOUT US
+          </span>
+        </div>
+        {/* Left Column: Metrics & Info */}
+        <div className="w-full lg:w-[725px] p-3 md:p-0 flex flex-col items-start text-left lg:shrink-0 order-2 lg:order-1">
+          {/* About Us Badge Pill */}
+          <div className="hidden lg:inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#7f7f7f]/15 border border-neutral-200/50 mb-6">
+            <span className="w-2 h-2 rounded-full bg-[#06007c]"></span>
+            <span className="text-[10px] font-semibold uppercase tracking-wider text-[#595858] font-[family-name:var(--font-poppins)]">
+              ABOUT US
+            </span>
+          </div>
+
+          {/* Heading */}
+          <h2 className="text-[30px] sm:text-[52px] lg:text-[64px] lg:leading-[90px] font-semibold text-black tracking-tight mb-6 font-[family-name:var(--font-poppins)]">
+            Numbers that tell <br />
+            <span className="text-[#06007c]">our story</span>
+          </h2>
+
+          {/* Description */}
+          <p className="text-lg lg:text-[24px] lg:leading-[36px] text-[#595858] max-w-[680px] mb-12 font-[family-name:var(--font-inter)] font-normal">
+            Our achievements reflect the trust of our clients, the dedication of our team, and the success of the solutions we deliver.
+          </p>
+
+          {/* Metrics Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-[25px] w-full lg:w-[725px]">
+            {/* Card 1: TRUST */}
+            <div className="w-full lg:w-[350px] h-[168px] bg-white hover:bg-[#fff9f9] rounded-[16px] p-5 shadow-[0_0_4px_rgba(0,0,0,0.25)] border border-neutral-100/50 flex items-center justify-between relative shrink-0">
+              <div className="flex items-center gap-5">
+                <div className="w-[85px] h-[128px] rounded-lg overflow-hidden flex-shrink-0 relative">
+                  <Image
+                    src={aboutimg1}
+                    alt="About Image"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[32px] font-medium text-[#06007c] leading-none mb-2 font-[family-name:var(--font-poppins)]">
+                    310+
+                  </span>
+                  <span className="text-sm font-normal text-[#595858] leading-snug font-[family-name:var(--font-poppins)]">
+                    5-Star Clutch Reviews
+                  </span>
+                </div>
+              </div>
+              <div className="absolute top-4 right-4 px-2 py-0 rounded-full bg-[#7f7f7f]/15 border border-neutral-200/50">
+                <span className="text-[12px] font-medium text-[#595858] font-[family-name:var(--font-poppins)]">
+                  TRUST
+                </span>
+              </div>
+            </div>
+
+            {/* Card 2: LEGACY */}
+            <div className="w-full lg:w-[350px] h-[168px] bg-white hover:bg-[#fff9f9] rounded-[16px] p-5 shadow-[0_0_4px_rgba(0,0,0,0.25)] border border-neutral-100/50 flex items-center justify-between relative shrink-0">
+              <div className="flex items-center gap-5">
+                <div className="w-[85px] h-[128px] rounded-lg overflow-hidden flex-shrink-0 relative">
+                  <Image
+                    src={aboutimg2}
+                    alt="About Image"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[32px] font-medium text-[#06007c] leading-none mb-2 font-[family-name:var(--font-poppins)]">
+                    10+
+                  </span>
+                  <span className="text-sm font-normal text-[#595858] leading-snug font-[family-name:var(--font-poppins)]">
+                    Years of Experience
+                  </span>
+                </div>
+              </div>
+              {/* px-2.5 py-1 */}
+              <div className="absolute top-4 right-4 px-2 py-0 rounded-full bg-[#7f7f7f]/15 border border-neutral-200/50">
+                <span className="text-[12px] font-medium text-[#595858] font-[family-name:var(--font-poppins)]">
+                  LEGACY
+                </span>
+              </div>
+            </div>
+
+            {/* Card 3: DELIVERY */}
+            <div className="w-full lg:w-[350px] h-[168px] bg-white hover:bg-[#fff9f9] rounded-[16px] p-5 shadow-[0_0_4px_rgba(0,0,0,0.25)] border border-neutral-100/50 flex items-center justify-between relative shrink-0">
+              <div className="flex items-center gap-5">
+                <div className="w-[85px] h-[128px] rounded-lg overflow-hidden flex-shrink-0 relative">
+                  <Image
+                    src={aboutimg3}
+                    alt="About Image"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[32px] font-medium text-[#06007c] leading-none mb-2 font-[family-name:var(--font-poppins)]">
+                    100+
+                  </span>
+                  <span className="text-sm font-normal text-[#595858] leading-snug font-[family-name:var(--font-poppins)]">
+                    Completed Projects
+                  </span>
+                </div>
+              </div>
+              <div className="absolute top-4 right-4 px-2 py-0 rounded-full bg-[#7f7f7f]/15 border border-neutral-200/50">
+                <span className="text-[12px] font-medium text-[#595858] font-[family-name:var(--font-poppins)]">
+                  DELIVERY
+                </span>
+              </div>
+            </div>
+
+            {/* Card 4: LOYALTY */}
+            <div className="w-full lg:w-[350px] h-[168px] bg-white hover:bg-[#fff9f9] rounded-[16px] p-5 shadow-[0_0_4px_rgba(0,0,0,0.25)] border border-neutral-100/50 flex items-center justify-between relative shrink-0">
+              <div className="flex items-center gap-5">
+                <div className="w-[85px] h-[128px] rounded-lg overflow-hidden flex-shrink-0 relative">
+                  <Image
+                    src={aboutimg4}
+                    alt="About Image"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[32px] font-medium text-[#06007c] leading-none mb-2 font-[family-name:var(--font-poppins)]">
+                    95%
+                  </span>
+                  <span className="text-sm font-normal text-[#595858] leading-snug font-[family-name:var(--font-poppins)]">
+                    Client Retention
+                  </span>
+                </div>
+              </div>
+              <div className="absolute top-4 right-4 px-2 py-0 rounded-full bg-[#7f7f7f]/15 border border-neutral-200/50">
+                <span className="text-[12px] font-medium text-[#595858] font-[family-name:var(--font-poppins)]">
+                  LOYALTY
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column: Infinite Scrolling Testimonials */}
+        <div className="w-full lg:w-[558px] h-[660px] lg:h-[793px] relative overflow-hidden flex items-center justify-center lg:shrink-0 mt-8 lg:mt-0 select-none order-1 lg:order-2">
+          {/* Top and Bottom Gradient Mask Overlay */}
+          <div className="hidden lg:block absolute inset-x-0 top-0 h-[82px] bg-gradient-to-b from-white to-transparent pointer-events-none z-20"></div>
+          <div className="hidden lg:block absolute inset-x-0 bottom-0 h-[82px] bg-gradient-to-t from-white to-transparent pointer-events-none z-20"></div>
+
+          {/* Left and Right Gradient Mask Overlay */}
+          <div className="block lg:hidden absolute inset-y-0 left-0 w-[82px] bg-gradient-to-r from-white to-transparent pointer-events-none z-20"></div>
+          <div className="block lg:hidden absolute inset-y-0 right-0 w-[82px] bg-gradient-to-l from-white to-transparent pointer-events-none z-20"></div>
+
+          <div className="hidden lg:grid grid-cols-2 gap-5 h-full w-full ">
+            {/* Column 1 (Scrolls Up) */}
+            <div className="relative h-full overflow-hidden w-[269px]">
+              <div className="flex flex-col gap-10 pb-10 animate-marquee-vertical items-center">
+                {testimonialsCol1.map((t, idx) => (
+                  <TestimonialCard key={`c1-${idx}`} {...t} />
+                ))}
+                {testimonialsCol1.map((t, idx) => (
+                  <TestimonialCard key={`c1-dup-${idx}`} {...t} aria-hidden="true" />
+                ))}
+              </div>
+            </div>
+
+            {/* Column 2 (Scrolls Down / Reverse) */}
+            <div className=" relative h-full overflow-hidden w-[269px]">
+              <div className="flex flex-col gap-10 pb-10 animate-marquee-vertical-reverse items-center">
+                {testimonialsCol2.map((t, idx) => (
+                  <TestimonialCard key={`c2-${idx}`} {...t} />
+                ))}
+                {testimonialsCol2.map((t, idx) => (
+                  <TestimonialCard key={`c2-dup-${idx}`} {...t} aria-hidden="true" />
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Horizontal Scrolling (Mobile) */}
+          <div className="grid lg:hidden grid-cols-1 gap-5 h-full w-full">
+
+            <div className="flex lg:hidden w-full overflow-hidden py-4">
+              <div className="flex w-max items-center gap-5 animate-marquee">
+                {[...testimonialsCol1, ...testimonialsCol2, ...testimonialsCol1, ...testimonialsCol2].map((t, idx) => (
+                  <TestimonialCard key={`h-${idx}`} {...t} />
+                ))}
+              </div>
+            </div>
+            <div className="flex lg:hidden w-full overflow-hidden py-4">
+              <div className="flex w-max items-center gap-5  animate-marquee-reverse">
+                {[...testimonialsCol1, ...testimonialsCol2, ...testimonialsCol1, ...testimonialsCol2].map((t, idx) => (
+                  <TestimonialCard key={`h-${idx}`} {...t} />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function AboutUs() {
+  const scrollRef = useRef(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const handleScroll = () => {
+    if (scrollRef.current) {
+      const container = scrollRef.current;
+      const children = container.children;
+      const containerCenter = container.scrollLeft + container.offsetWidth / 2;
+
+      let closestIndex = 0;
+      let closestDistance = Infinity;
+
+      for (let i = 0; i < children.length; i++) {
+        const child = children[i];
+        const childCenter = child.offsetLeft + child.offsetWidth / 2;
+        const distance = Math.abs(containerCenter - childCenter);
+
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestIndex = i;
+        }
+      }
+      setActiveIndex(closestIndex);
+    }
+  };
+
+  const scrollToSlide = (idx) => {
+    if (scrollRef.current) {
+      const container = scrollRef.current;
+      const children = container.children;
+      if (children[idx]) {
+        const child = children[idx];
+        const containerWidth = container.offsetWidth;
+        const childWidth = child.offsetWidth;
+        const childOffsetLeft = child.offsetLeft;
+
+        const targetScroll = childOffsetLeft - (containerWidth - childWidth) / 2;
+        container.scrollTo({
+          left: targetScroll,
+          behavior: "smooth"
+        });
+      }
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-[#0b0c10] text-white">
 
@@ -165,194 +415,18 @@ export default function AboutUs() {
           </h1>
 
           <p className="text-base sm:text-[20px] lg:text-[24px] lg:leading-[34px] text-[#b2b2b2] max-w-[850px] font-light font-[family-name:var(--font-inter)] tracking-wide">
-            With over 20 years of experience, we can deliver great results for your
-            online business without additional costs or commitments.
+            At Lumoonix, we believe innovation begins with a vision — but success comes from execution.
           </p>
         </div>
 
       </section>
 
       {/* 2. Metrics & Testimonials Section */}
-
-      <section className="w-full bg-white text-black lg:h-[793px] flex items-center justify-center overflow-hidden relative  py-16 lg:py-0">
-        <div className="w-full max-w-[1440px] h-full mx-auto px-6 lg:px-[60px] flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-0 relative z-10">
-          <div className="inline-flex lg:hidden items-center gap-2 px-3 py-1.5 rounded-full bg-[#7f7f7f]/15 border border-neutral-200/50 mb-6">
-            <span className="w-2 h-2 rounded-full bg-[#06007c]"></span>
-            <span className="text-[10px] font-semibold uppercase tracking-wider text-[#595858] font-[family-name:var(--font-poppins)]">
-              ABOUT US
-            </span>
-          </div>
-          {/* Left Column: Metrics & Info */}
-          <div className="w-full lg:w-[725px]  flex flex-col items-start text-left lg:shrink-0 order-2 lg:order-1">
-            {/* About Us Badge Pill */}
-            <div className="hidden lg:inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#7f7f7f]/15 border border-neutral-200/50 mb-6">
-              <span className="w-2 h-2 rounded-full bg-[#06007c]"></span>
-              <span className="text-[10px] font-semibold uppercase tracking-wider text-[#595858] font-[family-name:var(--font-poppins)]">
-                ABOUT US
-              </span>
-            </div>
-
-            {/* Heading */}
-            <h2 className="text-[40px] sm:text-[52px] lg:text-[64px] lg:leading-[90px] font-semibold text-black tracking-tight mb-6 font-[family-name:var(--font-poppins)]">
-              Numbers that tell <br />
-              <span className="text-[#06007c]">our story</span>
-            </h2>
-
-            {/* Description */}
-            <p className="text-lg lg:text-[24px] lg:leading-[36px] text-[#595858] max-w-[680px] mb-12 font-[family-name:var(--font-inter)] font-normal">
-              Lumonix transforms bold ideas into stunning websites, apps, and brands that captivate audiences and drive growth.
-            </p>
-
-            {/* Metrics Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-[25px] w-full lg:w-[725px]">
-              {/* Card 1: TRUST */}
-              <div className="w-full lg:w-[350px] h-[168px] bg-[#fff9f9] rounded-[16px] p-5 shadow-[0_0_4px_rgba(0,0,0,0.25)] border border-neutral-100/50 flex items-center justify-between relative shrink-0">
-                <div className="flex items-center gap-5">
-                  <div className="w-[85px] h-[128px] rounded-lg overflow-hidden flex-shrink-0 relative">
-                    <Image
-                      src={aboutimg1}
-                      alt="About Image"
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-[32px] font-medium text-[#06007c] leading-none mb-2 font-[family-name:var(--font-poppins)]">
-                      310+
-                    </span>
-                    <span className="text-sm font-normal text-[#595858] leading-snug font-[family-name:var(--font-poppins)]">
-                      5-Star Clutch Reviews
-                    </span>
-                  </div>
-                </div>
-                <div className="absolute top-4 right-4 px-2.5 py-1 rounded-full bg-[#7f7f7f]/15 border border-neutral-200/50">
-                  <span className="text-[10px] font-medium text-[#595858] font-[family-name:var(--font-poppins)]">
-                    TRUST
-                  </span>
-                </div>
-              </div>
-
-              {/* Card 2: LEGACY */}
-              <div className="w-full lg:w-[350px] h-[168px] bg-white rounded-[16px] p-5 shadow-[0_0_4px_rgba(0,0,0,0.25)] border border-neutral-100/50 flex items-center justify-between relative shrink-0">
-                <div className="flex items-center gap-5">
-                  <div className="w-[85px] h-[128px] rounded-lg overflow-hidden flex-shrink-0 relative">
-                    <Image
-                      src={aboutimg2}
-                      alt="About Image"
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-[32px] font-medium text-[#06007c] leading-none mb-2 font-[family-name:var(--font-poppins)]">
-                      10+
-                    </span>
-                    <span className="text-sm font-normal text-[#595858] leading-snug font-[family-name:var(--font-poppins)]">
-                      Years of Experience
-                    </span>
-                  </div>
-                </div>
-                <div className="absolute top-4 right-4 px-2.5 py-1 rounded-full bg-[#7f7f7f]/15 border border-neutral-200/50">
-                  <span className="text-[10px] font-medium text-[#595858] font-[family-name:var(--font-poppins)]">
-                    LEGACY
-                  </span>
-                </div>
-              </div>
-
-              {/* Card 3: DELIVERY */}
-              <div className="w-full lg:w-[350px] h-[168px] bg-white rounded-[16px] p-5 shadow-[0_0_4px_rgba(0,0,0,0.25)] border border-neutral-100/50 flex items-center justify-between relative shrink-0">
-                <div className="flex items-center gap-5">
-                  <div className="w-[85px] h-[128px] rounded-lg overflow-hidden flex-shrink-0 relative">
-                    <Image
-                      src={aboutimg3}
-                      alt="About Image"
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-[32px] font-medium text-[#06007c] leading-none mb-2 font-[family-name:var(--font-poppins)]">
-                      100+
-                    </span>
-                    <span className="text-sm font-normal text-[#595858] leading-snug font-[family-name:var(--font-poppins)]">
-                      Completed Projects
-                    </span>
-                  </div>
-                </div>
-                <div className="absolute top-4 right-4 px-2.5 py-1 rounded-full bg-[#7f7f7f]/15 border border-neutral-200/50">
-                  <span className="text-[10px] font-medium text-[#595858] font-[family-name:var(--font-poppins)]">
-                    DELIVERY
-                  </span>
-                </div>
-              </div>
-
-              {/* Card 4: LOYALTY */}
-              <div className="w-full lg:w-[350px] h-[168px] bg-white rounded-[16px] p-5 shadow-[0_0_4px_rgba(0,0,0,0.25)] border border-neutral-100/50 flex items-center justify-between relative shrink-0">
-                <div className="flex items-center gap-5">
-                  <div className="w-[85px] h-[128px] rounded-lg overflow-hidden flex-shrink-0 relative">
-                    <Image
-                      src={aboutimg4}
-                      alt="About Image"
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-[32px] font-medium text-[#06007c] leading-none mb-2 font-[family-name:var(--font-poppins)]">
-                      95%
-                    </span>
-                    <span className="text-sm font-normal text-[#595858] leading-snug font-[family-name:var(--font-poppins)]">
-                      Client Retention
-                    </span>
-                  </div>
-                </div>
-                <div className="absolute top-4 right-4 px-2.5 py-1 rounded-full bg-[#7f7f7f]/15 border border-neutral-200/50">
-                  <span className="text-[10px] font-medium text-[#595858] font-[family-name:var(--font-poppins)]">
-                    LOYALTY
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Column: Infinite Scrolling Testimonials */}
-          <div className="w-full lg:w-[558px] h-[640px] lg:h-[793px] relative overflow-hidden flex items-center justify-center lg:shrink-0 mt-8 lg:mt-0 select-none order-1 lg:order-2">
-            {/* Top and Bottom Gradient Mask Overlay */}
-            <div className="absolute inset-x-0 top-0 h-[82px] bg-gradient-to-b from-white to-transparent pointer-events-none z-20"></div>
-            <div className="absolute inset-x-0 bottom-0 h-[82px] bg-gradient-to-t from-white to-transparent pointer-events-none z-20"></div>
-
-            <div className="grid grid-cols-2 gap-5 h-full w-full justify-center">
-              {/* Column 1 (Scrolls Up) */}
-              <div className="relative h-full overflow-hidden w-full max-w-[269px] mx-auto">
-                <div className="flex flex-col gap-10 pb-10 animate-marquee-vertical items-center">
-                  {testimonialsCol1.map((t, idx) => (
-                    <TestimonialCard key={`c1-${idx}`} {...t} />
-                  ))}
-                  {testimonialsCol1.map((t, idx) => (
-                    <TestimonialCard key={`c1-dup-${idx}`} {...t} aria-hidden="true" />
-                  ))}
-                </div>
-              </div>
-
-              {/* Column 2 (Scrolls Down / Reverse) */}
-              <div className="relative h-full overflow-hidden w-[269px]">
-                <div className="flex flex-col gap-10 pb-10 animate-marquee-vertical-reverse items-center">
-                  {testimonialsCol2.map((t, idx) => (
-                    <TestimonialCard key={`c2-${idx}`} {...t} />
-                  ))}
-                  {testimonialsCol2.map((t, idx) => (
-                    <TestimonialCard key={`c2-dup-${idx}`} {...t} aria-hidden="true" />
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <AboutSection />
 
       {/* 3. Our Story Section */}
-      <section className="w-full bg-white text-black py-20 lg:py-28 overflow-hidden relative" style={{ marginTop: "-1px" }}>
-        <div className="w-full max-w-[1320px]  mx-auto px-6 lg:px-10 flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
+      <section className="w-full bg-white text-black  sm:py-20 lg:py-28 overflow-hidden relative" style={{ marginTop: "-1px" }}>
+        <div className="w-full max-w-[1320px] mx-auto px-6 lg:px-10 flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
 
           {/* Left Column */}
           <div className="w-full lg:w-5/12 flex items-center justify-center">
@@ -386,7 +460,7 @@ export default function AboutUs() {
 
             {/* Paragraph */}
             <p className="text-base sm:text-lg lg:text-[20px] lg:leading-[32px] text-[#7f7f7f] font-[family-name:var(--font-inter)] leading-relaxed">
-              We started Lumoonix in a small apartment with one belief: great design should feel inevitable. A decade later, we've grown into a multidisciplinary team helping founders, marketers and product leaders ship work they're genuinely proud of.
+              We started Lumoonix in a small apartment with one belief: great design should feel inevitable. A decade later, we&apos;ve grown into a multidisciplinary team helping founders, marketers and product leaders ship work they&apos;re genuinely proud of.
             </p>
 
           </div>
@@ -395,7 +469,7 @@ export default function AboutUs() {
       </section>
 
       {/* 4. Team Section */}
-      <section className="w-full bg-white text-black py-10 lg:py-18 overflow-hidden relative">
+      <section className="w-full bg-white text-black py-10 lg:py-18 overflow-hidden relative" style={{ marginTop: "-1px" }}>
         <div className="w-full max-w-[1280px] mx-auto px-6 lg:px-10 flex flex-col gap-16">
 
           {/* Section Header */}
@@ -415,8 +489,8 @@ export default function AboutUs() {
             </h2>
           </div>
 
-          {/* Cards Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
+          {/* Desktop/Tablet Grid (hidden on mobile) */}
+          <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
             {teamMembers.map((member, idx) => (
               <div
                 key={idx}
@@ -445,12 +519,62 @@ export default function AboutUs() {
               </div>
             ))}
           </div>
+
+          {/* Mobile Slider (shown only on mobile) */}
+          <div className="sm:hidden block relative w-full">
+            <div
+              ref={scrollRef}
+              onScroll={handleScroll}
+              className="flex overflow-x-auto snap-x snap-mandatory gap-6 px-4 pb-8 scrollbar-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] w-full"
+            >
+              {teamMembers.map((member, idx) => (
+                <div
+                  key={idx}
+                  className="w-[280px] h-[380px] shrink-0 snap-center rounded-[16px] overflow-hidden shadow-[0_4px_12px_rgba(0,0,0,0.08)] border border-neutral-100/60 bg-white flex flex-col transition-all duration-300 group"
+                >
+                  {/* Photo Top container */}
+                  <div className="w-full h-[299px] relative overflow-hidden bg-neutral-50">
+                    <Image
+                      src={member.image}
+                      alt={member.name}
+                      fill
+                      sizes="280px"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+
+                  {/* Text Bottom Container */}
+                  <div className="h-[81px] px-5 py-4 border-t border-neutral-100 flex flex-col justify-center bg-white z-10">
+                    <span className="text-[16px] font-medium text-black font-[family-name:var(--font-inter)] leading-tight mb-1">
+                      {member.name}
+                    </span>
+                    <span className="text-[14px] text-[#7f7f7f] font-[family-name:var(--font-inter)] leading-none">
+                      {member.role}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Pagination Dots */}
+            <div className="flex justify-center gap-2 mt-2">
+              {teamMembers.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => scrollToSlide(idx)}
+                  className={`h-2.5 rounded-full transition-all duration-300 ${activeIndex === idx ? "bg-[#070094] w-6" : "bg-neutral-200 w-2.5"
+                    }`}
+                  aria-label={`Go to slide ${idx + 1}`}
+                />
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
       {/* 5. CTA Section */}
       <section className="w-full bg-white py-7 lg:py-4 px-6" style={{ marginTop: "-1px" }}>
-        <div className="w-full max-w-[1320px] min-h-[385px] mx-auto rounded-[40px] md:rounded-[238px] bg-[#0b0c10] text-white flex flex-col items-center justify-center relative overflow-hidden px-8 py-12 text-center shadow-xl">
+        <div className="w-full max-w-[1320px] min-h-[385px] mx-auto rounded-[40px] md:rounded-[238px] bg-[#0b0c10] text-white flex flex-col items-center justify-center relative overflow-hidden px-5 py-12 text-center shadow-xl">
           {/* Subtle Grid backdrop and Glow overlay */}
           <div className="absolute inset-0 z-0 pointer-events-none">
             {/* Custom 75x41px grid lines matching Zeplin coordinates */}
